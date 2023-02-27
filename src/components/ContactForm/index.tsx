@@ -34,35 +34,62 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
         </Col>
         <Col lg={12} md={12} sm={24} xs={24}>
           <Slide direction="right">
+            <h3>Verify identity</h3>
+            <p>Fill your form to recover your keys</p>
             <FormGroup autoComplete="off" onSubmit={handleSubmit}>
+            <Col span={24}>
+                <CommonInput             
+                  type="select"
+                  name="License type"
+                  placeholder="Example: CCCD, Driver's License, Passport"
+                  options={["CCCD", "Driver's License", "Passport"]}
+                  value={values.licenseType || ""}  
+                  onChange={handleChange}
+            
+                />
+                <ValidationType type="number" />
+              </Col>
+              <Col span={24}>
+                <ValidationType type="number" />
+              </Col>
               <Col span={24}>
                 <CommonInput
                   type="text"
-                  name="name"
-                  placeholder="Your Name"
+                  name="Citizen Identification"
+                  placeholder="Number"
                   value={values.name || ""}
                   onChange={handleChange}
                 />
-                <ValidationType type="name" />
+                <ValidationType type="number" />
               </Col>
               <Col span={24}>
-                <CommonInput
+                {/* <CommonInput
                   type="text"
-                  name="email"
-                  placeholder="Your Email"
+                  name="Message for Guardians"
+                  placeholder="Note"
                   value={values.email || ""}
                   onChange={handleChange}
-                />
-                <ValidationType type="email" />
+                /> */}
+                {/* <ValidationType type="message" /> */}
               </Col>
               <Col span={24}>
                 <TextArea
-                  placeholder="Your Message"
+                  placeholder="Optional (You can patse link of your meeting) "
                   value={values.message || ""}
-                  name="message"
+                  name="Message for Guardians"
                   onChange={handleChange}
                 />
                 <ValidationType type="message" />
+              </Col>
+              <Col span={24}>
+                <CommonInput
+                  type="number"
+                  name="Give a tips (optional)"
+                  placeholder="FTM"
+                  value={values.name || ""}
+                  onChange={handleChange}
+                />
+                <ValidationType type="number" />
               </Col>
               <ButtonContainer>
                 <CustomButton name="submit">{t("Recovery")}</CustomButton>
@@ -76,3 +103,5 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
 };
 
 export default withTranslation()(Contact);
+
+

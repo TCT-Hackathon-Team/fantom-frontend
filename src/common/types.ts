@@ -55,6 +55,7 @@ export interface SvgIconProps {
 }
 
 export interface InputProps {
+    options?: string[];
     name: string;
     placeholder: string;
     t: any;
