@@ -1,6 +1,6 @@
 import {Row} from "antd";
 import {withTranslation} from "react-i18next";
-import {SvgIcon} from "../../common/SvgIcon";
+import {SvgIcon} from "@/common/SvgIcon";
 import Container from "../../common/Container";
 
 import i18n from "i18next";
@@ -41,12 +41,6 @@ const Footer = ({t}: any): JSX.Element => {
                     >
                         <NavLink to="/">
                             <LogoContainer>
-                                {/*<SvgIcon*/}
-                                {/*  src="logo.svg"*/}
-                                {/*  aria-label="homepage"*/}
-                                {/*  width="101px"*/}
-                                {/*  height="64px"*/}
-                                {/*/>*/}
                                 Social Recovery
                             </LogoContainer>
                         </NavLink>

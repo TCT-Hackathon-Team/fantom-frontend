@@ -1,5 +1,4 @@
 import {Col, Row} from "antd";
-import {withTranslation} from "react-i18next";
 import {Slide} from "react-awesome-reveal";
 import {CustomButton} from "../../common/Button";
 import {Content, ContentWrapper, MiddleBlockSection} from "./styles";
@@ -39,4 +38,4 @@ const MiddleBlock = ({ title, content, button, t }: MiddleBlockProps) => {
   );
 };
 
-export default withTranslation()(MiddleBlock);
+export default (MiddleBlock);

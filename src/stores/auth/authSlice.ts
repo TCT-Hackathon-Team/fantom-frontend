@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {Account, truncate} from "../../common/types";
+import {Account} from "../../common/types";
 import Web3 from "web3";
 
 const LS_KEY = 'login-with-metamask:auth';

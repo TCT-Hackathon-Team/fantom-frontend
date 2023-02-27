@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Col, Drawer, Row} from "antd";
 import {withTranslation} from "react-i18next";
 import Container from "../../common/Container";
-import {CustomButton} from "../../common/Button";
+import {CustomButton} from "@/common/Button";
 import {useNavigate} from "react-router-dom";
 
 import {
@@ -16,7 +16,7 @@ import {
     Outline,
     Span,
 } from "./styles";
-import {selectAccount} from "../../stores/auth/authSlice";
+import {selectAccount} from "@/stores/auth/authSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Profile from "../Profile";
 import {ConnectModal} from "../Login/ConnectModal";
