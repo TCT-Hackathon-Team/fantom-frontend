@@ -1,17 +1,13 @@
 import React, {lazy, useState} from "react";
-import {Content, ContentWrapper} from "../../components/MiddleBlock/styles";
+import {Content, ContentWrapper} from "@/components/MiddleBlock/styles";
 import {Col, Modal, Row} from "antd";
-import {CustomButton} from "../../common/Button";
-import {RightBlockContainer} from "../../components/ContentBlock/RightContentBlock/styles";
+import {CustomButton} from "@/common/Button";
+import {RightBlockContainer} from "@/components/ContentBlock/RightContentBlock/styles";
 import {Fade} from "react-awesome-reveal";
-import {SvgIcon} from "../../common/SvgIcon";
-import {ConnectModal} from "../../components/Login/ConnectModal";
+import {SvgIcon} from "@/common/SvgIcon";
+import {ConnectModal} from "@/components/Login/ConnectModal";
 
-const Contact = lazy(() => import("../../components/ContactForm"));
-const MiddleBlock = lazy(() => import("../../components/MiddleBlock"));
 const Container = lazy(() => import("../../common/Container"));
-const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
-const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 
 // @ts-ignore
 const ThisModal = ({isModalOpen, handleCancel, onButton}): JSX.Element => {
@@ -53,9 +49,9 @@ const WelcomePage = (): JSX.Element => {
                     <Row align="middle" id="1">
                         <Col lg={11} md={11} sm={11} xs={24}>
                             <ContentWrapper style={{textAlign: "center",}}>
-                                <p style={{fontWeight: "bold"}}>Secure Private Key Management with
+                                <div style={{fontWeight: "bold", fontSize: 30}}>Secure Private Key Management with
                                     <p>Owner Recovery</p>
-                                </p>
+                                </div>
                                 <Content>Never lose access to your wallet again. Social recovery for any EVM compatible
                                     chain. Implemented using a trustless infrastructure leveraging smart contracts,
                                     decentralized storage, and threshold cryptography.</Content>

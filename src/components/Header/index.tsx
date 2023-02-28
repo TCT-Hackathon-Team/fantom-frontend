@@ -114,4 +114,5 @@ const Header = ({t}: any): JSX.Element => {
     );
 };
 
+// @ts-ignore
 export default withTranslation()(Header);
