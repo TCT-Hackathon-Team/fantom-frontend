@@ -1,80 +1,106 @@
-import {Row} from "antd";
-import {withTranslation} from "react-i18next";
-import {SvgIcon} from "../../common/SvgIcon";
-import Container from "../../common/Container";
+import React from "react";
+// import one from "./1-modified.png";
+// import two from "./2-modified.png";
+import { Img } from '@chakra-ui/react';
+import {
+  Box,
+  Container,
+  Row,
+  Column,
+  FooterLink,
+  Heading,
+  Name
+} from "./FooterStyles";
+import styles from './Footer.module.scss';
+import {
+  // BsEnvelopeOpenFill,
+  // BsFillHouseDoorFill,
+  // BsFillTelephoneInboundFill,
+  BsFacebook,
+  BsYoutube,
+  BsInstagram,
+  BsTwitter
+} from 'react-icons/bs';
 
-import i18n from "i18next";
-import {Extra, FooterContainer, LogoContainer, NavLink,} from "./styles";
 
-interface SocialLinkProps {
-    href: string;
-    src: string;
-}
+  
+const Footer = () => {
+  return (
+  <div>
+    <Box>
+  
+      <Container>
+        <Row>
+          <Column>
+            <Name>👻Fantom</Name>
+  
+            <div className={styles.socialicons}>
+            <a href="#"><BsFacebook/></a>
+            <a href="#"><BsTwitter/></a>
+            <a href="#"><BsYoutube/></a>
+            <a href="#"><BsInstagram/></a>
+           
+          </div>
+        
+          </Column>
+          <Column>
+            <Heading>About us</Heading>
+            <FooterLink href="#">Safe, fast recovery service</FooterLink>
+            <FooterLink href="#">Ultimate & Truthless solution</FooterLink>
+            <FooterLink href="#">Terms of use</FooterLink>
+            <FooterLink href="#">Privacy Policy</FooterLink>
+          </Column>
+          <Column>
+            <Heading>Contact</Heading>
+          
+            <FooterLink href="#">144 Xuan Thuy, Dich Vong Hau, Cau Giay, Ha Noi</FooterLink>
+            <FooterLink href="#">uetvnu@gmail.com</FooterLink>
+            <FooterLink href="#">024354461</FooterLink>
+            
 
-const Footer = ({t}: any): JSX.Element => {
-    const handleChange = (language: string) => {
-        i18n.changeLanguage(language);
-    };
-
-    const SocialLink = ({href, src}: SocialLinkProps) => {
-        return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={src}
-                aria-label={src}
-            >
-                <SvgIcon src={src} width="25px" height="25px"/>
-            </a>
-        );
-    };
-
-    return (
-        <>
-            <Extra>
-                <Container border={true}>
-                    <Row
-                        justify="space-between"
-                        align="middle"
-                        style={{paddingTop: "3rem"}}
-                    >
-                        <NavLink to="/">
-                            <LogoContainer>
-                                {/*<SvgIcon*/}
-                                {/*  src="logo.svg"*/}
-                                {/*  aria-label="homepage"*/}
-                                {/*  width="101px"*/}
-                                {/*  height="64px"*/}
-                                {/*/>*/}
-                                Social Recovery
-                            </LogoContainer>
-                        </NavLink>
-                        <FooterContainer>
-                            <SocialLink
-                                href="https://github.com/Adrinlol/create-react-app-adrinlol"
-                                src="github.svg"
-                            />
-                            <SocialLink
-                                href="https://twitter.com/Adrinlolx"
-                                src="twitter.svg"
-                            />
-                            <SocialLink
-                                href="https://www.linkedin.com/in/lasha-kakabadze/"
-                                src="linkedin.svg"
-                            />
-                            <a href="https://fantomq12023.devpost.com/">
-                                <img
-                                    src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=adrinlol&button_colour=FF5F5F&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"
-                                    alt="Buy me a coffee"
-                                />
-                            </a>
-                        </FooterContainer>
-                    </Row>
-                </Container>
-            </Extra>
-        </>
-    );
+  
+            {/* <FooterLink href="#">Mumbai</FooterLink> */}
+          </Column>
+          <Column>
+            <Heading>Download</Heading>
+         
+            {/* <FooterLink href="#"><Img src="https://www.linkpicture.com/q/1-modified.png" /> </FooterLink>
+           
+            <FooterLink href="#"><Img src="https://www.linkpicture.com/q/2-modified.png"/> </FooterLink> */}
+         
+            {/* <FooterLink href="#">
+              <i className="fab fa-facebook-f">
+                <span style={{ marginLeft: "10px" }}>
+                  Facebook
+                </span>
+              </i>
+            </FooterLink>
+            <FooterLink href="#">
+              <i className="fab fa-instagram">
+                <span style={{ marginLeft: "10px" }}>
+                  Instagram
+                </span>
+              </i>
+            </FooterLink>
+            <FooterLink href="#">
+              <i className="fab fa-twitter">
+                <span style={{ marginLeft: "10px" }}>
+                  Twitter
+                </span>
+              </i>
+            </FooterLink>
+            <FooterLink href="#">
+              <i className="fab fa-youtube">
+                <span style={{ marginLeft: "10px" }}>
+                  Youtube
+                </span>
+              </i>
+            </FooterLink> */}
+          </Column>
+        </Row>
+      </Container>
+    </Box>
+    </div>
+  );
 };
-
-export default withTranslation()(Footer);
+export default Footer;

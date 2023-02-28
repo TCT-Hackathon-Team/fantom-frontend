@@ -1,0 +1,45 @@
+// @import 'styles/colors';
+.root {
+    @apply my-10 mb-32;
+
+    h3 {
+        font-size: 20px;
+        @apply font-bold;
+    }
+}
+
+.title {
+    @apply my-0 mx-auto max-w-7xl;
+}
+
+
+.container {
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  
+.text {
+    font-size: 20px;
+    padding-left: 50px;
+    padding-top: 30%;
+    float: left;
+  }
+
+  .socialicons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .socialicons a {
+    width: 20px;
+    margin: 0 10px;
+  
+  }
+
+  .Img Img {
+    height: 10%;
+    width: 10%;
+  }
