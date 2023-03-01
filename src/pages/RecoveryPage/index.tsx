@@ -1,19 +1,20 @@
 import {Tabs} from "antd";
 import React from "react";
 import ContactForm from "../../components/ContactForm";
+import FriendForm from "../../components/FriendForm";
 
 const tabs = [
     {
         id: "1",
-        name: "Guardians List",
+        name: "Recovery Wallet",
         content: <ContactForm title={"Recovery pls"} content={"TCT2001"} id={"1"}/>
     }, {
         id: "2",
-        name: "Protected Account",
-        content: <div>Hello TCT</div>
+        name: "Recovery for friends",
+        content: <FriendForm title={"Recovery pls"} content={"TCT2001"} id={"2"}/>
     }]
 
-const RecoveryPage = (): JSX.Element => {
+const RecoveryPage = () => {
     return (
         <div style={{margin: 50}}>
             <Tabs
