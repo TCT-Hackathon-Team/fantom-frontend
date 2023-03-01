@@ -1,8 +1,8 @@
 import React, {CSSProperties, useState} from "react";
 import {Button, Modal, Tag} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import {disconnect, selectAccount} from "../../stores/auth/authSlice";
-import {Account, truncate} from "../../common/types";
+import {disconnect, selectAccount} from "@/stores/auth/authSlice";
+import {Account, truncate} from "@/common/types";
 import {CopyOutlined, GlobalOutlined} from "@ant-design/icons"
 import {useNavigate} from "react-router-dom";
 

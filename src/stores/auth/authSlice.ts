@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {Account} from "../../common/types";
+import {Account} from "@/common/types";
 import Web3 from "web3";
 
 const LS_KEY = 'login-with-metamask:auth';
@@ -35,6 +35,8 @@ export const selectAccount = (state: any) => state.auth.value
 export const {connect, disconnect} = authSlice.actions
 export const authReducer = authSlice.reducer
 
+import myData from '@/Wallet.json';
+
 // @ts-ignore
 export const connectWallet = (navigate) => async (dispatch) => {
     if (!(window as any).ethereum) {
@@ -57,12 +59,15 @@ export const connectWallet = (navigate) => async (dispatch) => {
     }
 
     const coinbase = await web3.eth.getCoinbase();
+    // @ts-ignore
+    const myContract = new web3.eth.Contract(myData.abi, "0xD2C99E873EB4F21552C101C7c46eFC694323cb25");
+    console.log(myContract)
     if (!coinbase) {
         window.alert('Please activate MetaMask first.');
         return;
     }
 
-    const publicAddress = coinbase.toLowerCase();
+    let publicAddress = coinbase.toLowerCase();
 
     // const url = `${process.env.REACT_APP_BACKEND_URL}/users?publicAddress=${publicAddress}`
     const url = "https://api.publicapis.org/entries"

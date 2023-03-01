@@ -1,10 +1,10 @@
 import {Button, Modal, Space} from "antd";
-import {WalletModalProps} from "../../common/types";
+import {WalletModalProps} from "@/common/types";
 import {useDispatch} from "react-redux";
-import {connectWallet} from "../../stores/auth/authSlice";
+import {connectWallet} from "@/stores/auth/authSlice";
 import {useNavigate} from "react-router-dom";
 
-const wallets = [{key: 1, name: "Metamask"}, {key: 2, name: "Coinbase"}];
+const wallets = [{key: "1", name: "Metamask"}, {key: "2", name: "Coinbase"}];
 
 export const ConnectModal = ({isOpen, onClose}: WalletModalProps) => {
     const dispatch = useDispatch()
