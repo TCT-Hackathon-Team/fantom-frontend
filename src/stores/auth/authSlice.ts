@@ -82,7 +82,7 @@ export const connectWallet = (navigate) => async (dispatch) => {
         .then(() => {
             dispatch(connect({publicAddress}))
             navigate("/management")
-            window.alert("Dang gia lap BE :)))");
+            // window.alert("Dang gia lap BE :)))");    
             // if (web3 && web3.currentProvider) {
             //     web3.currentProvider.close()
             // }
