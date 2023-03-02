@@ -7,7 +7,12 @@ import { web3 } from "@/stores/auth/authSlice";
 import { truncate } from "../../common/types";
 import { useEffect } from "react";
 import { CustomButton } from "@/common/Button";
-import { getContractBalance } from "@/services/contracts/walletContract";
+import {
+  getContractAddress,
+  getContractBalance,
+  getCurrentAccount,
+  getUserBalance,
+} from "@/services/contracts/walletContract";
 
 const WALLET_CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT;
 
@@ -30,17 +35,11 @@ const ManagementPage = (): JSX.Element => {
   const [scAddress, setScAddress] = useState("");
   const [scBalance, setScBalance] = useState("0");
 
-  getContractBalance().then((res) => {
-    console.log("contract balance", res);
-  });
-
   useEffect(() => {
-    web3?.eth.getAccounts().then((res) => {
-      if (res) {
-        setCurrentAccount(res[0]);
-        web3?.eth.getBalance(currentAccount).then((res) => {
-          const ethBalance = web3?.utils.fromWei(res, "ether");
-          console.log("resBalance", ethBalance);
+    getCurrentAccount().then((currAccount) => {
+      if (currAccount) {
+        setCurrentAccount(currAccount);
+        getUserBalance().then((ethBalance) => {
           if (ethBalance) {
             setUserBalance(ethBalance);
           }
@@ -50,23 +49,18 @@ const ManagementPage = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    web3?.eth.getAccounts().then((res) => {
-      if (res) {
-        setScAddress(WALLET_CONTRACT_ADDRESS);
-
-        console.log("resCurrAcc", res[0]);
-        web3?.eth.getBalance(scAddress).then((res) => {
-          const ethBalance = web3?.utils.fromWei(res, "ether");
-          console.log("resBalance", ethBalance);
-          if (ethBalance) {
-            setScBalance(ethBalance);
+    // Todo: get smart contract address from backend
+    getContractAddress().then((cAddress) => {
+      if (cAddress) {
+        setScAddress(cAddress);
+        getContractBalance().then((scBalance) => {
+          if (scBalance) {
+            setScBalance(scBalance);
           }
         });
       }
     });
   }, []);
-
-  console.log(WALLET_CONTRACT_ADDRESS);
 
   const [activeTab, setActiveTab] = useState("1");
 

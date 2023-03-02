@@ -7,12 +7,11 @@ const ALCHEMY_RPC_ENDPOINT = import.meta.env.VITE_ALCHEMY_ENDPOINT;
 const CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT; // Todo: Call from backend
 
 let selectedAccount: any;
-let walletContract: Contract | null = null;
+let walletContractInstance: Contract | null = null;
 let isInitialized = false;
+let web3Instance: Web3 | null = null;
 
 export const init = async () => {
-  console.log("Contract address", CONTRACT_ADDRESS);
-
   let provider = (window as any).ethereum;
 
   if (typeof provider !== "undefined") {
@@ -32,9 +31,9 @@ export const init = async () => {
     });
   }
 
-  const web3 = new Web3(provider);
-  const networkId = await web3.eth.net.getId();
-  walletContract = new web3.eth.Contract(
+  web3Instance = new Web3(provider);
+  // const networkId = await web3Instance.eth.net.getId();
+  walletContractInstance = new web3Instance.eth.Contract(
     WalletContract.abi as any,
     CONTRACT_ADDRESS
   );
@@ -42,14 +41,46 @@ export const init = async () => {
   isInitialized = true;
 };
 
+export async function getContractAddress(): Promise<string> {
+  return CONTRACT_ADDRESS;
+}
+
+export async function getCurrentAccount(): Promise<string> {
+  if (!isInitialized) {
+    await init();
+  }
+
+  return selectedAccount;
+}
+
+export async function getUserBalance(): Promise<string> {
+  if (!isInitialized) {
+    await init();
+  }
+
+  try {
+    const balance: string = await web3Instance?.eth.getBalance(
+      selectedAccount
+    )!;
+
+    return web3Instance?.utils.fromWei(balance, "ether")!;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return "0";
+}
+
 export async function getContractBalance(): Promise<string> {
   if (!isInitialized) {
     await init();
   }
 
   try {
-    const contractBalance = await walletContract?.methods.getBalance().call();
-    return contractBalance;
+    const contractBalance = await walletContractInstance?.methods
+      .getBalance()
+      .call();
+    return web3Instance?.utils.fromWei(contractBalance, "ether")!;
   } catch (error) {
     console.log(error);
   }
@@ -63,10 +94,10 @@ export async function deposit(value: number): Promise<boolean> {
   }
 
   try {
-    await web3.eth.sendTransaction({
+    await web3Instance?.eth.sendTransaction({
       from: selectedAccount,
-      to: accounts[1],
-      value: web3.utils.toWei(value, "ether"),
+      to: CONTRACT_ADDRESS,
+      value: web3Instance?.utils.toWei(value.toString(), "ether"),
     });
     return true;
   } catch (error) {
@@ -82,9 +113,8 @@ export async function withdraw(value: number): Promise<boolean> {
   }
 
   try {
-    await web3.eth.methods.withdraw(value).send({
+    await walletContractInstance?.methods.withdraw(value).send({
       from: selectedAccount,
-
     });
     return true;
   } catch (error) {
@@ -100,7 +130,7 @@ export async function vote(newOwner: string): Promise<boolean> {
   }
 
   try {
-    await web3.eth.methods.vote(newOwner).send({
+    await walletContractInstance?.methods.vote(newOwner).send({
       from: selectedAccount,
     });
     return true;
