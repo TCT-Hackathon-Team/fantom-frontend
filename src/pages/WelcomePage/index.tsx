@@ -71,7 +71,6 @@ const WelcomePage = (): JSX.Element => {
             </RightBlockContainer>
         </Container>
     )
-        ;
 };
 
 export default WelcomePage;

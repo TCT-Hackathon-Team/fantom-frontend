@@ -1,4 +1,8 @@
 import Web3 from "web3";
+import {web3} from "@/stores/auth/authSlice";
+
+export const BACKEND_API: string = import.meta.env.VITE_APP_BACKEND_URL
+export const SAMPLE_SC_ADDRESS: string = import.meta.env.VITE_SAMPLE_SMARTCONTRACT_ADDRESS
 
 export const handleAuthenticate = ({
                                        publicAddress,
@@ -7,7 +11,7 @@ export const handleAuthenticate = ({
     publicAddress: string;
     signature: string;
 }) =>
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth`, {
+    fetch(`${BACKEND_API}/auth`, {
         body: JSON.stringify({publicAddress, signature}),
         headers: {
             'Content-Type': 'application/json',
@@ -16,11 +20,9 @@ export const handleAuthenticate = ({
     }).then((response) => response.json());
 
 export const handleSignMessage = async ({
-                                            web3,
-                                            publicAddress,
-                                            nonce,
-                                        }: {
-    web3: Web3
+                                     publicAddress,
+                                     nonce,
+                                 }: {
     publicAddress: string;
     nonce: string;
 }) => {
@@ -31,7 +33,7 @@ export const handleSignMessage = async ({
             '' // MetaMask will ignore the password argument here
         );
 
-        return {publicAddress, signature};
+        return { publicAddress, signature };
     } catch (err) {
         throw new Error(
             'You need to sign the message to be able to log in.'
@@ -39,11 +41,14 @@ export const handleSignMessage = async ({
     }
 };
 
-export const handleSignup = (publicAddress: string) =>
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, {
+export const handleSignup = (publicAddress: string) => {
+    fetch(`${BACKEND_API}/users`, {
         body: JSON.stringify({publicAddress}),
         headers: {
             'Content-Type': 'application/json',
         },
         method: 'POST',
-    }).then((response) => response.json());
+    }).then((response) => {
+        return response.json()
+    });
+}

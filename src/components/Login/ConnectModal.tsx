@@ -20,7 +20,7 @@ export const ConnectModal = ({isOpen, onClose}: WalletModalProps) => {
 
     return (
         <Modal
-            footer={[<Button shape="round" type="primary" danger onClick={onClose}>Return</Button>]}
+            footer={<Button shape="round" type="primary" danger onClick={onClose}>Return</Button>}
             centered title="Select Wallet" open={isOpen} onCancel={onClose}>
             <Space direction="vertical" style={{width: '100%'}}>
                 {listItems}

@@ -21,21 +21,37 @@ const ProfileModal = ({isModalOpen, onClose, account}): JSX.Element => {
     return (
         <>
             <Modal title="Account" open={isModalOpen} onCancel={onClose} footer={null}>
-                <p>
-                    Connect with Metamask
-                    <Button onClick={() => {
-                        dispatch(disconnect())
-                        navigate("/")
-                    }} style=
-                                {{
-                                    borderRadius: 20,
-                                    position: "absolute",
-                                    right: 20
-                                }}>Disconnect</Button>
-                </p>
-                <h4>{truncate(account.walletAddr, 4, 2, 9)}</h4>
+                <div style={{marginBottom: 30}}>
+                    <span>
+                        Connect with Metamask
+                        <Button onClick={() => {
+                            dispatch(disconnect())
+                            navigate("/")
+                        }} style=
+                                    {{
+                                        borderRadius: 20,
+                                        position: "absolute",
+                                        right: 20
+                                    }}>Disconnect</Button>
+                    </span>
+                </div>
+
+                <span style={{marginRight: 50, fontSize: 24}}>{truncate(account.walletAddr, 4, 2, 9)}</span>
+
                 <span><CopyOutlined/> Copy Address</span>
                 <span style={{marginLeft: 50}}><GlobalOutlined/> View on internet</span>
+
+                <div style={{marginTop: 50}}>
+                    <span>
+                        License key: 07xxx12
+                        <Button style=
+                                    {{
+                                        borderRadius: 20,
+                                        position: "absolute",
+                                        right: 20
+                                    }}>Change</Button>
+                    </span>
+                </div>
             </Modal>
         </>
     )
