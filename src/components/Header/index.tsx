@@ -87,7 +87,7 @@ const Header = ({t}: any): JSX.Element => {
                 <Row justify="space-between">
                     <LogoContainer to="/" aria-label="homepage">
                         {/*<SvgIcon src="logo.svg" width="101px" height="64px" />*/}
-                        Social Recovery
+                        Logo here
                     </LogoContainer>
                     <NotHidden>
                         <MenuItem/>

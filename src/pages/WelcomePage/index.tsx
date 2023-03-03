@@ -66,9 +66,56 @@ const WelcomePage = (): JSX.Element => {
                         <Col lg={13} md={13} sm={13} xs={24}>
                             <SvgIcon src={"BG.svg"} width="100%" height="100%"/>
                         </Col>
+                       
                     </Row>
+                    {/* <br/><br/>
+                    <Row align="middle" id="2" >
+                        <Col lg={23} md={15} sm={20} xs={24} >
+                            <ContentWrapper style={{textAlign: "center",}}>
+                               
+                                <SvgIcon src={"initial.svg"} width="180%" height="180%"/>
+                            </ContentWrapper>
+                        </Col>
+                       
+                       
+                    </Row> */}
+                    <br/><br/>
+                    <Row align="middle" id="2" >
+                        <Col lg={23} md={15} sm={20} xs={24} >
+                            <ContentWrapper style={{textAlign: "center",}}>
+                               
+                                <SvgIcon src={"key.svg"} width="180%" height="180%"/>
+                            </ContentWrapper>
+                        </Col>
+                       
+                       
+                    </Row>
+                    <br/><br/>
+                    <Row align="middle" id="2" >
+                        <Col lg={23} md={15} sm={20} xs={24} >
+                            <ContentWrapper style={{textAlign: "center",}}>
+                               
+                                <SvgIcon src={"roadmap.svg"} width="180%" height="180%"/>
+                            </ContentWrapper>
+                        </Col>
+                       
+                       
+                    </Row>
+                    <br/><br/>
+                    <Row align="middle" id="2" >
+                        <Col lg={23} md={15} sm={20} xs={24} >
+                            <ContentWrapper style={{textAlign: "center",}}>
+                               
+                                <SvgIcon src={"team.svg"} width="180%" height="180%"/>
+                            </ContentWrapper>
+                        </Col>
+                       
+                       
+                    </Row>
+                    
                 </Fade>
             </RightBlockContainer>
+            
         </Container>
     )
 };

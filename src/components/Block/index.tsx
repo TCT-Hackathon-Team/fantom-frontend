@@ -5,10 +5,11 @@ import Flow from "../ContactForm/flow.png";
 interface Props {
   title: string;
   content: string;
+  image: string;
   t: any;
 }
 
-const Block = ({ title, content, t }: Props) => {
+const Block = ({ title, content, image, t }: Props) => {
   return (
     <Container>
       <h6>{t(title)}</h6>
