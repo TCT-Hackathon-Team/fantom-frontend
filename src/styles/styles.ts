@@ -11,7 +11,7 @@ export const Styles = createGlobalStyle`
   }
 
   @font-face {
-    font-family: "Motiva Sans Light";
+    font-family: 'Source Sans Pro', sans-serif;
     src: url("/fonts/Motiva-Sans-Light.ttf") format("truetype");
     font-style: normal;
   }
@@ -26,7 +26,7 @@ export const Styles = createGlobalStyle`
   body,
   html,
   a {
-    font-family: 'Motiva Sans Light', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
 
@@ -116,5 +116,9 @@ export const Styles = createGlobalStyle`
 
   .ant-drawer-content-wrapper {
     width: 300px !important;
+  }
+  label {
+    font-weight: bold;
+    font-size: 20px;
   }
 `;
