@@ -124,6 +124,7 @@ export async function deposit(value: number): Promise<boolean> {
                 transaction!.transactionHash
             );
         }
+        // @ts-ignore
         return receipt.status;
     } catch (error) {
         console.log(error);

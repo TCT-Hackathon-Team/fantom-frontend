@@ -18,7 +18,9 @@
     "walletContractAddress": "",
     "identityNumber": "0000000001",
     "email": "test_2@gmail.com",
-    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "protectee": [
+      "0xCBb30B4Ff53e45372476ba004a775db606F78EB2"
+    ],
     "guards": []
   },
   {
@@ -27,7 +29,9 @@
     "walletContractAddress": "",
     "identityNumber": "0000000002",
     "email": "test_3@gmail.com",
-    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "protectee": [
+      "0xCBb30B4Ff53e45372476ba004a775db606F78EB2"
+    ],
     "guards": []
   },
   {
@@ -36,7 +40,9 @@
     "walletContractAddress": "",
     "identityNumber": "0000000003",
     "email": "test_4@gmail.com",
-    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "protectee": [
+      "0xCBb30B4Ff53e45372476ba004a775db606F78EB2"
+    ],
     "guards": []
   }
 ]

@@ -10,20 +10,20 @@ import {Provider} from "react-redux";
 import {store} from "@/stores";
 
 const App = (): JSX.Element => (
-  <BrowserRouter>
-    <I18nextProvider i18n={i18n}>
-      <Router />
-    </I18nextProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+        <I18nextProvider i18n={i18n}>
+            <Router/>
+        </I18nextProvider>
+    </BrowserRouter>
 );
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>
 );

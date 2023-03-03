@@ -3,7 +3,7 @@ import {Account} from "@/common/types";
 
 import {handleAuthenticate, handleSignMessage, handleSignup, SAMPLE_SC_ADDRESS} from "@/stores/auth/authHepler";
 import jwtDecode from 'jwt-decode';
-import {getCurrentAccount, web3Instance} from "@/services/contracts/walletContract";
+import {getCurrentAccount} from "@/services/contracts/walletContract";
 
 const LS_KEY = 'login-with-metamask:auth';
 // export let web3: Web3 | undefined | null = undefined; // Will hold the web3 instance
@@ -48,6 +48,7 @@ export const connectWallet = (navigate) => async (dispatch) => {
         })
         // If yes, retrieve it. If no, create it.
         .then((users) => {
+            // HandleSignup: if user is not exist
             return users.length ? users[0] : handleSignup(publicAddress)
         })
         // Popup MetaMask confirmation modal to sign message

@@ -3,10 +3,10 @@ export interface ContactProps {
     content: string;
     id: string;
     t: any;
-    
-  }
-  
-  export interface ValidationTypeProps {
+
+}
+
+export interface ValidationTypeProps {
     type: any;
-  }
+}
   

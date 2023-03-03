@@ -4,80 +4,53 @@ import React from "react";
 import {Space, Tag} from "antd";
 
 export interface TransactionDataFormat {
-  txHash: string;
-  txType: string;
-  value: number;
+    txHash: string;
+    txType: string;
+    value: number;
 }
 
 export async function getTransactions(): Promise<ColumnsType<TransactionData>> {
-  return [];
+    return [];
 }
 
 export const columns: ColumnsType<TransactionData> = [
-  {
-    title: "Tx Hash",
-    key: "txHash",
-    dataIndex: "txHash",
-    render: (_, { txHash }) => (
-      <Space size="middle">
-        <p>
-          <a href={`https://testnet.ftmscan.com/tx/${txHash}`} target="_blank">
-            {truncate(txHash, 12, 5, 20)}
-          </a>
-        </p>
-      </Space>
-    ),
-  },
-  {
-    title: "Value",
-    key: "value",
-    dataIndex: "value",
-    render: (_, { value }) => (
-      <Space size="middle">
-        <p>{value}</p>
-      </Space>
-    ),
-  },
-  {
-    title: "Type",
-    key: "type",
-    dataIndex: "txType",
-    render: (_, { txType }) => (
-      <>
-        <Tag
-          color={txType.toLowerCase() == "deposit" ? "green" : "volcano"}
-          key={txType}
-        >
-          {txType.toUpperCase()}
-        </Tag>
-      </>
-    ),
-  },
-  //   {
-  //     title: "Tags",
-  //     key: "tags",
-  //     dataIndex: "tags",
-  //     render: (_, { tags }) => (
-  //       <>
-  //         {tags.map((tag) => {
-  //           let color = "geekblue";
-  //           switch (tag) {
-  //             case "deposit":
-  //               color = "green";
-  //               break;
-  //             case "withdraw":
-  //               color = "volcano";
-  //               break;
-  //             default:
-  //               break;
-  //           }
-  //           return (
-  //             <Tag color={color} key={tag}>
-  //               {tag.toUpperCase()}
-  //             </Tag>
-  //           );
-  //         })}
-  //       </>
-  //     ),
-  //   },
+    {
+        title: "Tx Hash",
+        key: "txHash",
+        dataIndex: "txHash",
+        render: (_, {txHash}) => (
+            <Space size="middle">
+                <p>
+                    <a href={`https://testnet.ftmscan.com/tx/${txHash}`} target="_blank">
+                        {truncate(txHash, 12, 5, 20)}
+                    </a>
+                </p>
+            </Space>
+        ),
+    },
+    {
+        title: "Value",
+        key: "value",
+        dataIndex: "value",
+        render: (_, {value}) => (
+            <Space size="middle">
+                <p>{value}</p>
+            </Space>
+        ),
+    },
+    {
+        title: "Type",
+        key: "type",
+        dataIndex: "txType",
+        render: (_, {txType}) => (
+            <>
+                <Tag
+                    color={txType.toLowerCase() == "deposit" ? "green" : "volcano"}
+                    key={txType}
+                >
+                    {txType.toUpperCase()}
+                </Tag>
+            </>
+        ),
+    },
 ];
