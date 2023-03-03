@@ -10,7 +10,7 @@ import CommonInput from "../../common/Input";
 import TextArea from "../../common/TextArea";
 import {ButtonContainer, ContactContainer, FormGroup, Span} from "./styles";
 
-const Contact = ({ title, content, id, t }: ContactProps) => {
+const Contact = ({ title, content, id, image, t}: ContactProps) => {
   const { values, errors, handleChange, handleSubmit } = useForm(
     validate
   ) as any;
@@ -29,7 +29,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
       <Row justify="space-between" align="middle">
         <Col lg={12} md={11} sm={24} xs={24}>
           <Slide direction="left">
-            <Block title={title} content={content} />
+            <Block title={title} content={content} image={image}/>
           </Slide>
         </Col>
         <Col lg={12} md={12} sm={24} xs={24}>

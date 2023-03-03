@@ -2,16 +2,22 @@ import {Tabs} from "antd";
 import React from "react";
 import ContactForm from "../../components/ContactForm";
 import FriendForm from "../../components/FriendForm";
+import Flow from "../../components/ContactForm/flow.png";
 
 const tabs = [
     {
         id: "1",
         name: "Recovery Wallet",
-        content: <ContactForm title={"Recovery pls"} content={"TCT2001"} id={"1"}/>
+        content: <ContactForm title={"Private keys lost flow"} content={"follow this"} id={"1"} image={Flow}/>,
+       
+
     }, {
         id: "2",
         name: "Recovery for friends",
-        content: <FriendForm title={"Recovery pls"} content={"TCT2001"} id={"2"}/>
+        content: <FriendForm title={"Private keys lost flow"} content={"follow this"} id={"2"} />,
+       
+
+        
     }]
 
 const RecoveryPage = () => {
@@ -26,6 +32,8 @@ const RecoveryPage = () => {
                         label: `${name}`,
                         key: id,
                         children: (content),
+                        
+                    
                     };
                 })}
             />

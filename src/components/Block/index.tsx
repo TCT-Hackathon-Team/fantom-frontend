@@ -1,5 +1,6 @@
 import {withTranslation} from "react-i18next";
 import {Container, Content, TextWrapper} from "./styles";
+import Flow from "../ContactForm/flow.png";
 
 interface Props {
   title: string;
@@ -14,6 +15,7 @@ const Block = ({ title, content, t }: Props) => {
       <TextWrapper>
         <Content>{t(content)}</Content>
       </TextWrapper>
+      <img src={Flow} alt="block-image" />
     </Container>
   );
 };
