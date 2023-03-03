@@ -1,4 +1,4 @@
-import {ColumnsType} from "antd/es/table";
+import { ColumnsType } from "antd/es/table";
 
 export interface ContainerProps {
   border?: boolean;
@@ -6,26 +6,33 @@ export interface ContainerProps {
 }
 
 export interface InfoData {
-  balance: number,
-  address: string,
+  balance: string;
+  address: string;
 }
 
 export interface TransactionTableData {
-  data: TransactionData[],
-  columns: ColumnsType<TransactionData>
+  data: TransactionData[];
+  columns: ColumnsType<TransactionData>;
 }
 
+// export interface TransactionData {
+//   key: string;
+//   name: string;
+//   age: number;
+//   address: string;
+//   tags: string[];
+// }
+
 export interface TransactionData {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  txHash: string;
+  txType: string;
+  value: number;
+  // tags: string[];
 }
 
 export interface GuardianTableData {
-  data: GuardianData[],
-  columns: ColumnsType<GuardianData>
+  data: GuardianData[];
+  columns: ColumnsType<GuardianData>;
 }
 
 export interface GuardianData {
@@ -56,7 +63,6 @@ export interface SvgIconProps {
 
 export interface InputProps {
   name: string;
-  options?: string[];
   placeholder: string;
   t: any;
   type?: string;
@@ -79,20 +85,25 @@ export interface Auth {
 }
 
 export interface Account {
-  id: string,
-  name: string,
-  walletAddr: string,
-  smartContractAddr: string
+  id: string;
+  name: string;
+  walletAddr: string;
+  smartContractAddr: string;
 }
 
-export const truncate = (text: string, startChars: number, endChars: number, maxLength: number) => {
+export const truncate = (
+  text: string,
+  startChars: number,
+  endChars: number,
+  maxLength: number
+) => {
   if (text.length > maxLength) {
     var start = text.substring(0, startChars);
     var end = text.substring(text.length - endChars, text.length);
-    while ((start.length + end.length) < maxLength) {
-      start = start + '.';
+    while (start.length + end.length < maxLength) {
+      start = start + ".";
     }
     return start + end;
   }
   return text;
-}
+};

@@ -1,13 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {Account} from "@/common/types";
-
+import {Account} from "../../common/types";
 import Web3 from "web3";
-import Contract from "web3"
-
-import myData from '@/Wallet.json';
-import {handleAuthenticate, handleSignMessage, handleSignup, SAMPLE_SC_ADDRESS} from "@/stores/auth/authHepler";
-import {useSelector} from "react-redux";
-import jwtDecode from 'jwt-decode';
 
 const LS_KEY = 'login-with-metamask:auth';
 export let web3: Web3 | undefined | null = undefined; // Will hold the web3 instance
@@ -42,8 +35,6 @@ export const authReducer = authSlice.reducer
 
 // @ts-ignore
 export const connectWallet = (navigate) => async (dispatch) => {
-    console.log(import.meta.env.VITE_APP_BACKEND_URL)
-
     if (!(window as any).ethereum) {
         window.alert('Please install MetaMask first.');
         return;
@@ -88,10 +79,10 @@ export const connectWallet = (navigate) => async (dispatch) => {
         // Popup MetaMask confirmation modal to sign message
         .then(handleSignMessage)
         // // Send signature to backend on the /counter route
-        .then(handleAuthenticate)
+        // .then(handleAuthenticate)
         // // Pass accessToken back to parent component (to save it in localStorage)
-        .then((response) => {
-            dispatch(connect({publicAddress, token: response, scAddr: SAMPLE_SC_ADDRESS}))
+        .then(() => {
+            dispatch(connect({publicAddress}))
             navigate("/management")
             // window.alert("Dang gia lap BE :)))");
             // if (web3 && web3.currentProvider) {

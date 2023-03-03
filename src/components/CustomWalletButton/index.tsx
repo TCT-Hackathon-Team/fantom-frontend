@@ -1,7 +1,7 @@
 import { StyledButton } from "./styles";
-import { ButtonProps } from "../types";
+import { ButtonProps } from "../../common/types";
 
-export const CustomButton = ({
+export const CustomWalletButton = ({
   type,
   color,
   fixedWidth,
