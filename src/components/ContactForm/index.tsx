@@ -5,12 +5,11 @@ import { ContactProps, ValidationTypeProps } from "./types";
 import { useForm } from "../../common/utils/useForm";
 import validate from "../../common/utils/validationRules";
 import { CustomButton } from "../../common/Button";
-import Block from "../Block";
 import CommonInput from "../../common/Input";
 import TextArea from "../../common/TextArea";
 import { ButtonContainer, ContactContainer, FormGroup, Span } from "./styles";
-import React from "react";
 import { Select } from "antd";
+import { SvgIcon } from "@/common/SvgIcon";
 
 const Contact = ({ title, content, id, t }: ContactProps) => {
   const { values, errors, handleChange, handleSubmit } = useForm(
@@ -30,9 +29,12 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
     <ContactContainer id={id}>
       <Row justify="space-between" align="middle">
         <Col lg={12} md={11} sm={24} xs={24}>
-          <Slide direction="left">
-            <Block title={title} content={content} />
-          </Slide>
+          <SvgIcon
+            src={"verify-identity.svg"}
+            width="90%"
+            height="100%"
+            object-fit="fill"
+          />
         </Col>
         <Col lg={12} md={12} sm={24} xs={24}>
           <Slide direction="right">
