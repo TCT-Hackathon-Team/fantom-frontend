@@ -8,13 +8,13 @@ const tabs = [
     {
         id: "1",
         name: "Recovery Wallet",
-        content: <ContactForm title={"Private keys lost flow"} content={"follow this"} id={"1"} image={Flow}/>,
+        content: <ContactForm title={"Private keys lost flow"} content={"Please follow these steps"} id={"1"} image={Flow}/>,
        
 
     }, {
         id: "2",
         name: "Recovery for friends",
-        content: <FriendForm title={"Private keys lost flow"} content={"follow this"} id={"2"} />,
+        content: <FriendForm title={"Private keys lost flow"} content={"Please follow these steps"} id={"2"} />,
        
 
         
