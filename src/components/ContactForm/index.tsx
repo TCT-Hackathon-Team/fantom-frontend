@@ -1,14 +1,16 @@
-import {Col, Row} from "antd";
-import {withTranslation} from "react-i18next";
-import {Slide, Zoom} from "react-awesome-reveal";
-import {ContactProps, ValidationTypeProps} from "./types";
-import {useForm} from "../../common/utils/useForm";
+import { Col, Row } from "antd";
+import { withTranslation } from "react-i18next";
+import { Slide, Zoom } from "react-awesome-reveal";
+import { ContactProps, ValidationTypeProps } from "./types";
+import { useForm } from "../../common/utils/useForm";
 import validate from "../../common/utils/validationRules";
-import {CustomButton} from "../../common/Button";
+import { CustomButton } from "../../common/Button";
 import Block from "../Block";
 import CommonInput from "../../common/Input";
 import TextArea from "../../common/TextArea";
-import {ButtonContainer, ContactContainer, FormGroup, Span} from "./styles";
+import { ButtonContainer, ContactContainer, FormGroup, Span } from "./styles";
+import React from "react";
+import { Select } from "antd";
 
 const Contact = ({ title, content, id, t }: ContactProps) => {
   const { values, errors, handleChange, handleSubmit } = useForm(
@@ -37,17 +39,50 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
             <h3>Verify identity</h3>
             <p>Fill your form to recover your keys</p>
             <FormGroup autoComplete="off" onSubmit={handleSubmit}>
-            <Col span={24}>
-                <CommonInput             
-                  type="select"
-                  name="License type"
-                  placeholder="Example: CCCD, Driver's License, Passport"
-                  options={["CCCD", "Driver's License", "Passport"]}
-                  value={values.licenseType || ""}  
-                  onChange={handleChange}
-            
+              <Col span={24}>
+                <label>License type</label>
+                <br />
+                <Select
+                  showSearch
+                  // style={{ width: 200 }}
+
+                  placeholder="Search to Select"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    (option?.label ?? "").includes(input)
+                  }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? "")
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? "").toLowerCase())
+                  }
+                  options={[
+                    {
+                      value: "1",
+                      label: "CCCD",
+                    },
+                    {
+                      value: "2",
+                      label: "Driver's License",
+                    },
+                    {
+                      value: "3",
+                      label: "Passport",
+                    },
+                    // {
+                    //   value: "4",
+                    //   label: "Identified",
+                    // },
+                    // {
+                    //   value: "5",
+                    //   label: "Resolved",
+                    // },
+                    // {
+                    //   value: "6",
+                    //   label: "Cancelled",
+                    // },
+                  ]}
                 />
-                <ValidationType type="number" />
               </Col>
               <Col span={24}>
                 <ValidationType type="number" />
@@ -103,4 +138,3 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
 };
 
 export default withTranslation()(Contact);
-
