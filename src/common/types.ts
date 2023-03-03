@@ -15,19 +15,10 @@ export interface TransactionTableData {
   columns: ColumnsType<TransactionData>;
 }
 
-// export interface TransactionData {
-//   key: string;
-//   name: string;
-//   age: number;
-//   address: string;
-//   tags: string[];
-// }
-
 export interface TransactionData {
   txHash: string;
   txType: string;
   value: number;
-  // tags: string[];
 }
 
 export interface GuardianTableData {
