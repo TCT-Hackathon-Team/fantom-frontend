@@ -28,14 +28,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
   return (
     <ContactContainer id={id}>
       <Row justify="space-between" align="middle">
-        <Col lg={12} md={11} sm={24} xs={24}>
-          <SvgIcon
-            src={"verify-identity.svg"}
-            width="90%"
-            height="100%"
-            object-fit="fill"
-          />
-        </Col>
+
         <Col lg={12} md={12} sm={24} xs={24}>
           <Slide direction="right">
             <h3>Verify identity</h3>
@@ -133,6 +126,15 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
               </ButtonContainer>
             </FormGroup>
           </Slide>
+        </Col>
+        {/* TODO: object-fit: fill */}
+        <Col lg={12} md={11} sm={24} xs={24}>
+          <SvgIcon
+            src={"verify-identity.svg"}
+            width="90%"
+            height="100%"
+            object-fit="fill"
+          />
         </Col>
       </Row>
     </ContactContainer>
