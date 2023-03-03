@@ -13,6 +13,9 @@ let web3Instance: Web3 | null = null;
 
 export const init = async () => {
   let provider = (window as any).ethereum;
+  //  || Web3.givenProvider
+  //  || ALCHEMY_RPC_ENDPOINT
+  //  || "http://localhost:8545"
 
   if (typeof provider !== "undefined") {
     provider
@@ -42,6 +45,7 @@ export const init = async () => {
 };
 
 export async function getContractAddress(): Promise<string> {
+  // Todo: Connect with backend
   return CONTRACT_ADDRESS;
 }
 
@@ -49,7 +53,6 @@ export async function getCurrentAccount(): Promise<string> {
   if (!isInitialized) {
     await init();
   }
-
   return selectedAccount;
 }
 
@@ -92,19 +95,31 @@ export async function deposit(value: number): Promise<boolean> {
   if (!isInitialized) {
     await init();
   }
+  if (value == 0 || value == null) {
+    return false;
+  }
 
   try {
-    await web3Instance?.eth.sendTransaction({
+    const transaction = await web3Instance?.eth.sendTransaction({
       from: selectedAccount,
       to: CONTRACT_ADDRESS,
       value: web3Instance?.utils.toWei(value.toString(), "ether"),
     });
-    return true;
+
+    let receipt = await web3Instance?.eth.getTransactionReceipt(
+      transaction!.transactionHash
+    );
+    while (!receipt) {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for 1 second
+      receipt = await web3Instance?.eth.getTransactionReceipt(
+        transaction!.transactionHash
+      );
+    }
+    return receipt.status;
   } catch (error) {
     console.log(error);
+    return false;
   }
-
-  return false;
 }
 
 export async function withdraw(value: number): Promise<boolean> {
@@ -112,10 +127,21 @@ export async function withdraw(value: number): Promise<boolean> {
     await init();
   }
 
+  if (value == 0 || value == null) {
+    return false;
+  }
+
+  console.log("value", value);
+
+  const weiValue = web3Instance?.utils.toWei(value.toString(), "ether");
+  console.log("weiValue", weiValue);
+
   try {
-    await walletContractInstance?.methods.withdraw(value).send({
-      from: selectedAccount,
-    });
+    const transaction = await walletContractInstance?.methods
+      .withdraw(weiValue)
+      .send({
+        from: selectedAccount,
+      });
     return true;
   } catch (error) {
     console.log(error);
@@ -139,6 +165,11 @@ export async function vote(newOwner: string): Promise<boolean> {
   }
 
   return false;
+}
+
+// Utils
+async function isPending(txHash: string) {
+  return (await web3Instance?.eth.getTransactionReceipt(txHash)) == null;
 }
 
 // console.log("Contract address", CONTRACT_ADDRESS);

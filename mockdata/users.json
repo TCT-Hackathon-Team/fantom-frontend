@@ -1,0 +1,34 @@
+{
+  "0": {
+    "walletAddress": "0xCBb30B4Ff53e45372476ba004a775db606F78EB2",
+    "identityNumber": "0000000000",
+    "email": "test_1@gmail.com",
+    "protectee": [],
+    "guards": [
+      "0xEB0A272172506c6d8f328317a3E7B2567F7a370f",
+      "0x376B61ee2cD79ffeb56361bEb579F3393F59A9e5",
+      "0xB0E3B66C977AEF974dF02396e0E405DeFc177E01c"
+    ]
+  },
+  "1": {
+    "walletAddress": "0xEB0A272172506c6d8f328317a3E7B2567F7a370f",
+    "identityNumber": "0000000001",
+    "email": "test_2@gmail.com",
+    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "guards": []
+  },
+  "2": {
+    "walletAddress": "0x376B61ee2cD79ffeb56361bEb579F3393F59A9e5",
+    "identityNumber": "0000000002",
+    "email": "test_3@gmail.com",
+    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "guards": []
+  },
+  "3": {
+    "walletAddress": "0xB0E3B66C977AEF974dF02396e0E405DeFc177E01c",
+    "identityNumber": "0000000003",
+    "email": "test_4@gmail.com",
+    "protectee": ["0xCBb30B4Ff53e45372476ba004a775db606F78EB2"],
+    "guards": []
+  }
+}
