@@ -46,26 +46,29 @@ const WalletButton: React.FC<WalletButtonProps> = (
       return;
     }
     setConfirmLoading(true);
-    setModalText("Processing....");
+    setModalText("Enter amount");
 
     switch (props.type) {
       case "deposit":
-        deposit(quantity).then((res) => {
-          console.log("Deposit res", res);
-          setOpen(false);
-          setConfirmLoading(false);
-          setQuantity(0);
-          if (res) {
-            // getUserBalance().then((ethBalance) => {
-            //   if (ethBalance) {
-            //     props.setUserBalance(ethBalance);
-            //   }
-            // });
-            success("deposit");
-          } else {
+        deposit(quantity)
+          .then((res) => {
+            console.log("Deposit res", res);
+            setOpen(false);
+            setConfirmLoading(false);
+            setQuantity(0);
+            if (res) {
+              success("deposit");
+            } else {
+              error("deposit");
+            }
+          })
+          .catch((err) => {
+            console.log("Deposit err", err);
+            setOpen(false);
+            setConfirmLoading(false);
+            setQuantity(0);
             error("deposit");
-          }
-        });
+          });
         break;
       case "withdraw":
         console.log("Withdraw");
@@ -76,11 +79,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
             setConfirmLoading(false);
             setQuantity(0);
             if (res) {
-              // getUserBalance().then((ethBalance) => {
-              //   if (ethBalance) {
-              //     props.setUserBalance(ethBalance);
-              //   }
-              // });
               success("withdraw");
             } else {
               error("withdraw");
@@ -140,12 +138,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
 
   return (
     <>
-      {/* <> 
-        <Button onClick={success}>Success</Button>
-      </> */}
-      {/* <Button type="primary" onClick={showModal}>
-        {props.title}
-      </Button> */}
       {contextHolder}
       <StyledButton onClick={showModal}>{props.title}</StyledButton>
 
@@ -166,16 +158,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
           placeholder={quantity.toString()}
           onChange={HandleQuantityChange}
         />
-        {/* 
-        <input
-          type="number"
-          name="quantity"
-          step={0.1}
-          // value={this.props.Quantity != null ? this.props.Quantity : ""}
-          onChange={HandleQuantityChange}
-          // onBlur={this.props.HandleQuantityChange}
-          // onKeyUp={this.props.HandleQuantityChange}
-        /> */}
       </Modal>
     </>
   );

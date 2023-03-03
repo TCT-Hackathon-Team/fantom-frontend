@@ -46,7 +46,7 @@ export const init = async () => {
 
 export async function getContractAddress(): Promise<string> {
   // Todo: Connect with backend
-  return CONTRACT_ADDRESS;
+  return CONTRACT_ADDRESS.toLowerCase();
 }
 
 export async function getCurrentAccount(): Promise<string> {

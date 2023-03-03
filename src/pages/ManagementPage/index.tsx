@@ -3,10 +3,8 @@ import { Tabs } from "antd";
 import { InfoStatistic } from "./InfoStatistic";
 import { TransactionTable } from "./TransactionTable";
 import { columns, TransactionDataFormat } from "./MockData";
-import { web3 } from "@/stores/auth/authSlice";
-import { truncate } from "../../common/types";
+
 import { useEffect } from "react";
-import { CustomButton } from "@/common/Button";
 import {
   getContractAddress,
   getContractBalance,
@@ -16,51 +14,9 @@ import {
 import WalletButton from "@/components/WalletButton";
 import allTx from "./../../../mockdata/transactions.json";
 
-// import * as txs from "./../../../mockdata/transactions.json";
-// const allTx = require("./../../../mockdata/transactions.json");
-
-const txArray = allTx as unknown as TransactionDataFormat[];
-console.log(txArray);
-
-const WALLET_CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT;
-const test = `
-[
-  {
-    "txHash": "0xc6e0c13cdcdf42015530aecffe1637f8526e7d653fdac18a58f0118b9626c1ea",
-    "from": "0xcbb30b4ff53e45372476ba004a775db606f78eb2",
-    "userName": "test_1",
-    "value": "0.001",
-    "txType": "Deposit"
-  }
-]
-`;
-// let transactions = JSON.parse(JSON.stringify(txs));
-// let txArray = transactions.transactions;
-// console.log(transactions);
-
-// const txArray: TransactionDataFormat[] = JSON.parse(JSON.stringify(txs));
-// const txArray: TransactionDataFormat[] = JSON.parse(test);
-// console.log(txArray);
-
-// txArray.forEach((tx) => {
-//   console.log(tx);
-// });
-
-// let txArray;
-// try {
-//    const itemListResponse = <TransactionDataFormat[]>JSON.parse(transactions);
-
-//    if(!itemListResponse.has("id") ||
-//       !itemListResponse.has("type") ||
-//       !itemListResponse.has("state")){
-
-//       throw "Invalid Item";
-//    }
-// } catch (e){
-
-// }
-
 // Todo: Crawl data from backend
+const txArray = allTx as unknown as TransactionDataFormat[];
+
 const tabs = [
   {
     id: "1",
@@ -79,7 +35,6 @@ const ManagementPage = (): JSX.Element => {
   const [userBalance, setUserBalance] = useState("0");
   const [scAddress, setScAddress] = useState("");
   const [scBalance, setScBalance] = useState("0");
-  const [txStatus, setTxStatus] = useState(false);
 
   useEffect(() => {
     getCurrentAccount().then((currAccount) => {
@@ -116,9 +71,6 @@ const ManagementPage = (): JSX.Element => {
 
   return (
     <div style={{ margin: 50 }}>
-      {/* <CustomButton onClick={async () => {}}>Deposit</CustomButton>
-      <CustomButton>Withdraw</CustomButton> */}
-      {/* Prompts */}
       {/* Wallet action */}
       <WalletButton title="Deposit" type="deposit"></WalletButton>
       &nbsp;&nbsp;&nbsp;

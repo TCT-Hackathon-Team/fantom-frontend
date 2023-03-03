@@ -2,6 +2,7 @@ import { ColumnsType } from "antd/es/table";
 import { TransactionData } from "../../common/types";
 import React from "react";
 import { Space, Tag } from "antd";
+import { truncate } from "../../common/types";
 
 export interface TransactionDataFormat {
   txHash: string;
@@ -16,9 +17,17 @@ export async function getTransactions(): Promise<ColumnsType<TransactionData>> {
 export const columns: ColumnsType<TransactionData> = [
   {
     title: "Tx Hash",
+    key: "txHash",
     dataIndex: "txHash",
-    key: "name",
-    render: (text) => <p>{text}</p>,
+    render: (_, { txHash }) => (
+      <Space size="middle">
+        <p>
+          <a href={`https://testnet.ftmscan.com/tx/${txHash}`} target="_blank">
+            {truncate(txHash, 12, 5, 20)}
+          </a>
+        </p>
+      </Space>
+    ),
   },
   {
     title: "Value",
