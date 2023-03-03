@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 export const FooterSection = styled("footer")`
-  background: rgb(241, 242, 243);
+  background: rgb(212, 193, 247);
   padding: 2.5rem 0;
 `;
 
@@ -30,7 +30,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const Extra = styled("section")`
-  background: rgb(241, 242, 243);
+  background: rgb(233, 225, 247);
   position: relative;
   width: 100%;
   margin-right: auto;
@@ -88,7 +88,7 @@ export const Empty = styled("div")`
 `;
 
 export const FooterContainer = styled("div")`
-  max-width: 510px;
+  max-width: 200px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -121,7 +121,7 @@ export const FooterContainer = styled("div")`
     height: 25px;
 
     &:hover {
-      fill: rgb(255, 130, 92);
+      fill: rgb(212, 193, 247);
     }
   }
 `;

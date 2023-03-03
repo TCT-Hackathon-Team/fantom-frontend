@@ -49,12 +49,12 @@ const WelcomePage = (): JSX.Element => {
                     <Row align="middle" id="1">
                         <Col lg={11} md={11} sm={11} xs={24}>
                             <ContentWrapper style={{textAlign: "center",}}>
-                                <div style={{fontWeight: "bold", fontSize: 30}}>Secure Private Key Management with
-                                    <p>Owner Recovery</p>
+                                <div style={{fontWeight: "bold", fontSize: 30}}>Everyone find name for the app
+                                    <p>slogan here</p>
                                 </div>
-                                <Content>Never lose access to your wallet again. Social recovery for any EVM compatible
-                                    chain. Implemented using a trustless infrastructure leveraging smart contracts,
-                                    decentralized storage, and threshold cryptography.</Content>
+                                <Content>A "trustless" key recovery solution, using Fantom blockchain 
+                                    to link the ID info (indentity card, driver's license,...) 
+                                    with user account and using assistance of social recovery partner (guardians, …) to validate identity</Content>
                                 <CustomButton
                                     fixedWidth={true}
                                     onClick={showModal}
