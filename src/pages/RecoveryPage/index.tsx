@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import {Tabs} from "antd";
 import React from "react";
 import ContactForm from "../../components/ContactForm";
 import FriendForm from "../../components/FriendForm";

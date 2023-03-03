@@ -1,8 +1,7 @@
-import Web3 from "web3";
-import {web3} from "@/stores/auth/authSlice";
+import {getWeb3Instance, web3Instance} from "@/services/contracts/walletContract";
 
 export const BACKEND_API: string = import.meta.env.VITE_APP_BACKEND_URL
-export const SAMPLE_SC_ADDRESS: string = import.meta.env.VITE_SAMPLE_SMARTCONTRACT_ADDRESS
+export const SAMPLE_SC_ADDRESS: string = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT
 
 export const handleAuthenticate = ({
                                        publicAddress,
@@ -27,6 +26,7 @@ export const handleSignMessage = async ({
     nonce: string;
 }) => {
     try {
+        const web3 = await getWeb3Instance()
         const signature = await web3!.eth.personal.sign(
             `I am signing my one-time nonce: ${nonce}`,
             publicAddress,

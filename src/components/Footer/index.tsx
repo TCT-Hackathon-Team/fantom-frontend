@@ -1,10 +1,10 @@
-import { Row } from "antd";
-import { withTranslation } from "react-i18next";
-import { SvgIcon } from "@/common/SvgIcon";
+import {Row} from "antd";
+import {withTranslation} from "react-i18next";
+import {SvgIcon} from "@/common/SvgIcon";
 import Container from "../../common/Container";
 
 import i18n from "i18next";
-import { Extra, FooterContainer, LogoContainer, NavLink } from "./styles";
+import {Extra, FooterContainer, LogoContainer, NavLink} from "./styles";
 
 interface SocialLinkProps {
   href: string;

@@ -1,4 +1,5 @@
-import { ColumnsType } from "antd/es/table";
+import {ColumnsType} from "antd/es/table";
+import Web3 from "web3";
 
 export interface ContainerProps {
   border?: boolean;
@@ -13,6 +14,7 @@ export interface InfoData {
 export interface TransactionTableData {
   data: TransactionData[];
   columns: ColumnsType<TransactionData>;
+  rowKey?: string;
 }
 
 export interface TransactionData {
@@ -80,6 +82,7 @@ export interface Account {
   name: string;
   walletAddr: string;
   smartContractAddr: string;
+  web3: Web3;
 }
 
 export const truncate = (

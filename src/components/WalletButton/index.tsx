@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Button, Modal, message, Space } from "antd";
-import { StyledButton } from "@/common/Button/styles";
-import { Input } from "antd";
-import { deposit, withdraw } from "@/services/contracts/walletContract";
+import React, {useState} from "react";
+import {Input, message, Modal} from "antd";
+import {StyledButton} from "@/common/Button/styles";
+import {deposit, withdraw} from "@/services/contracts/walletContract";
 
 interface WalletButtonProps {
   title: string;
@@ -37,7 +36,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
       } else {
         setValid(true);
       }
-      console.log(isValid);
     }
   };
 
@@ -52,7 +50,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
       case "deposit":
         deposit(quantity)
           .then((res) => {
-            console.log("Deposit res", res);
             setOpen(false);
             setConfirmLoading(false);
             setQuantity(0);
@@ -71,10 +68,8 @@ const WalletButton: React.FC<WalletButtonProps> = (
           });
         break;
       case "withdraw":
-        console.log("Withdraw");
         withdraw(quantity)
           .then((res) => {
-            console.log("Withdraw res", res);
             setOpen(false);
             setConfirmLoading(false);
             setQuantity(0);
@@ -97,7 +92,6 @@ const WalletButton: React.FC<WalletButtonProps> = (
   };
 
   const handleCancel = () => {
-    console.log("Clicked cancel button");
     setOpen(false);
   };
 

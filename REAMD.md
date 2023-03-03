@@ -14,10 +14,6 @@ yarn dev
 ## How to call auth request
 _ACCESS-TOKEN: store in LocalStore (for fast development)_
 ```js
-    const {
-			payload: { id },
-		} = jwtDecode<JwtDecoded>(accessToken);
-
     fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`, {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,

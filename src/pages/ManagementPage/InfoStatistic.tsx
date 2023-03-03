@@ -1,7 +1,6 @@
 import React from "react";
-import { Card, Col, Row, Statistic } from "antd";
-import { InfoData } from "../../common/types";
-import { truncate } from "../../common/types";
+import {Card, Col, Row, Statistic} from "antd";
+import {InfoData, truncate} from "../../common/types";
 
 export const InfoStatistic = ({ balance, address }: InfoData): JSX.Element => {
   const fullAddress = address;

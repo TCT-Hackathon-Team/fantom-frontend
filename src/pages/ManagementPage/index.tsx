@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Tabs } from "antd";
-import { InfoStatistic } from "./InfoStatistic";
-import { TransactionTable } from "./TransactionTable";
-import { columns, TransactionDataFormat } from "./MockData";
-
-import { useEffect } from "react";
+import React, {useEffect, useState} from "react";
+import {Tabs} from "antd";
+import {InfoStatistic} from "./InfoStatistic";
+import {TransactionTable} from "./TransactionTable";
+import {columns, TransactionDataFormat} from "./MockData";
 import {
   getContractAddress,
   getContractBalance,
@@ -13,20 +11,22 @@ import {
 } from "@/services/contracts/walletContract";
 import WalletButton from "@/components/WalletButton";
 import allTx from "./../../../mockdata/transactions.json";
+import {useSelector} from "react-redux";
+import {selectAccount} from "@/stores/auth/authSlice";
 
-// Todo: Crawl data from backend
 const txArray = allTx as unknown as TransactionDataFormat[];
 
+// Todo: Crawl data from backend
 const tabs = [
   {
     id: "1",
     name: "Wallet",
-    content: <TransactionTable data={txArray} columns={columns} />,
+    content: <TransactionTable rowKey={"txHash"} data={txArray} columns={columns} />,
   },
   {
     id: "2",
     name: "Smart Contract",
-    content: <TransactionTable data={txArray} columns={columns} />,
+    content: <TransactionTable rowKey={"txHash"} data={txArray} columns={columns} />,
   },
 ];
 
@@ -71,6 +71,9 @@ const ManagementPage = (): JSX.Element => {
 
   return (
     <div style={{ margin: 50 }}>
+      {/* <CustomButton onClick={async () => {}}>Deposit</CustomButton>
+      <CustomButton>Withdraw</CustomButton> */}
+      {/* Prompts */}
       {/* Wallet action */}
       <WalletButton title="Deposit" type="deposit"></WalletButton>
       &nbsp;&nbsp;&nbsp;

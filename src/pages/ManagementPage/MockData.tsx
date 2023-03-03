@@ -1,8 +1,7 @@
-import { ColumnsType } from "antd/es/table";
-import { TransactionData } from "../../common/types";
+import {ColumnsType} from "antd/es/table";
+import {TransactionData, truncate} from "@/common/types";
 import React from "react";
-import { Space, Tag } from "antd";
-import { truncate } from "../../common/types";
+import {Space, Tag} from "antd";
 
 export interface TransactionDataFormat {
   txHash: string;

@@ -1,5 +1,5 @@
-import { StyledButton } from "./styles";
-import { ButtonProps } from "../types";
+import {StyledButton} from "./styles";
+import {ButtonProps} from "../types";
 
 export const CustomButton = ({
   type,
