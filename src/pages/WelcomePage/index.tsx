@@ -90,7 +90,7 @@ const WelcomePage = (): JSX.Element => {
                        
                        
                     </Row>
-                    <br/><br/>
+                    
                     <Row align="middle" id="2" >
                         <Col lg={23} md={15} sm={20} xs={24} >
                             <ContentWrapper style={{textAlign: "center",}}>
