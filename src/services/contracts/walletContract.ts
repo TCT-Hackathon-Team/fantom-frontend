@@ -4,6 +4,7 @@ import WalletContract from "../../../contracts/Wallet.json";
 import hashContract from "../../../contracts/Hash.json";
 import { json } from "react-router-dom";
 import { async } from "q";
+import { Bool } from "reselect/es/types";
 
 const ALCHEMY_RPC_ENDPOINT = import.meta.env.VITE_ALCHEMY_ENDPOINT;
 const CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT; // Todo: Call from backend
@@ -82,7 +83,7 @@ export async function createWalletContract(
     const walletContract = new web3.eth.Contract(WalletContract.abi as any);
 
     try {
-        await walletContract
+        const contractInstance = await walletContract
             .deploy({
                 data: WalletContract.bytecode,
                 arguments: [guardianAddressHashes, threshold],
@@ -92,12 +93,22 @@ export async function createWalletContract(
                 gas: 1500000,
                 gasPrice: "30000000000000",
             });
-        return true;
+
+        console.log("Contract deployed at:", contractInstance.options.address);
+
+        // Check if the contract was deployed successfully
+        const code = await web3.eth.getCode(contractInstance.options.address);
+        if (code.length > 2) {
+            console.log("Contract deployment was successful");
+            return true;
+        } else {
+            console.log("Contract deployment failed");
+            return false;
+        }
     } catch (error) {
         console.log(error);
+        return false;
     }
-
-    return false;
 }
 
 /************************************************
@@ -214,6 +225,95 @@ export async function withdraw(value: number): Promise<boolean> {
 /************************************************
  *  Guardian Management
  ***********************************************/
+
+export async function isGuardian(address: string): Promise<Boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    const addressHash = web3Instance?.utils.keccak256(address);
+
+    try {
+        const isGuardian = await walletContractInstance?.methods
+            .isGuardian(addressHash)
+            .call();
+        return isGuardian;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+export async function addGuardians(address: string): Promise<Boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    const guardStatus = await isGuardian(address);
+    if (guardStatus) {
+        console.log("Already a guardian");
+        return false;
+    }
+
+    try {
+        const transaction = await walletContractInstance?.methods
+            .addGuardians(address)
+            .send({
+                from: selectedAccount,
+            });
+
+        let receipt = await web3Instance?.eth.getTransactionReceipt(
+            transaction!.transactionHash
+        );
+        while (!receipt) {
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for 1 second
+            receipt = await web3Instance?.eth.getTransactionReceipt(
+                transaction!.transactionHash
+            );
+        }
+        return receipt.status;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+export async function removeGuardians(address: string): Promise<Boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    const guardStatus = await isGuardian(address);
+    if (!guardStatus) {
+        console.log("Not a guardian");
+
+        return false;
+    }
+
+    try {
+        const transaction = await walletContractInstance?.methods
+            .removeGuardian(address)
+            .send({
+                from: selectedAccount,
+            });
+        let receipt = await web3Instance?.eth.getTransactionReceipt(
+            transaction!.transactionHash
+        );
+        while (!receipt) {
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for 1 second
+            receipt = await web3Instance?.eth.getTransactionReceipt(
+                transaction!.transactionHash
+            );
+        }
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
 
 /************************************************
  *  Recovery Process
