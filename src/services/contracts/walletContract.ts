@@ -1,9 +1,13 @@
 import Web3 from "web3";
-import {Contract} from "web3-eth-contract";
+import { Contract } from "web3-eth-contract";
 import WalletContract from "../../../contracts/Wallet.json";
+import hashContract from "../../../contracts/Hash.json";
+import { json } from "react-router-dom";
+import { async } from "q";
 
 const ALCHEMY_RPC_ENDPOINT = import.meta.env.VITE_ALCHEMY_ENDPOINT;
 const CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_WALLET_CONTRACT; // Todo: Call from backend
+const HASH_CONTRACT_ADDRESS = import.meta.env.VITE_SAMPLE_HASH_CONTRACT; // Todo: Call from backend
 
 let selectedAccount: any;
 export let walletContractInstance: Contract | null = null;
@@ -15,11 +19,15 @@ export const getWeb3Instance = async () => {
         await init();
     }
     return web3Instance;
-}
+};
+
+/************************************************
+ *  Initialization
+ ***********************************************/
 
 export const init = async () => {
     if (!(window as any).ethereum) {
-        window.alert('Please install MetaMask first.');
+        window.alert("Please install MetaMask first.");
         return;
     }
 
@@ -29,7 +37,8 @@ export const init = async () => {
     //  || "http://localhost:8545"
 
     if (typeof provider !== "undefined") {
-        await provider.request({method: "eth_requestAccounts"})
+        await provider
+            .request({ method: "eth_requestAccounts" })
             .then((accounts: any) => {
                 selectedAccount = accounts[0];
                 console.log(`Selected account is ${selectedAccount}`);
@@ -54,6 +63,47 @@ export const init = async () => {
     isInitialized = true;
 };
 
+/************************************************
+ *  Signup
+ ***********************************************/
+
+export async function createWalletContract(
+    guardianAddresses: string[],
+    threshold: number
+): Promise<boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+    let web3 = new Web3(new Web3.providers.HttpProvider(ALCHEMY_RPC_ENDPOINT));
+    const guardianAddressHashes = guardianAddresses.map((address) => {
+        return web3Instance?.utils.keccak256(address);
+    });
+
+    const walletContract = new web3.eth.Contract(WalletContract.abi as any);
+
+    try {
+        await walletContract
+            .deploy({
+                data: WalletContract.bytecode,
+                arguments: [guardianAddressHashes, threshold],
+            })
+            .send({
+                from: selectedAccount,
+                gas: 1500000,
+                gasPrice: "30000000000000",
+            });
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+/************************************************
+ *  Account Management
+ ***********************************************/
+
 export async function getContractAddress(): Promise<string> {
     // Todo: Connect with backend
     return CONTRACT_ADDRESS.toLowerCase();
@@ -61,7 +111,7 @@ export async function getContractAddress(): Promise<string> {
 
 export async function getCurrentAccount(): Promise<string> {
     if (!isInitialized) {
-        await init()
+        await init();
     }
     return selectedAccount;
 }
@@ -92,13 +142,17 @@ export async function getContractBalance(): Promise<string> {
         const contractBalance = await walletContractInstance?.methods
             .getBalance()
             .call();
-        return web3Instance?.utils.fromWei(contractBalance, "ether")!
+        return web3Instance?.utils.fromWei(contractBalance, "ether")!;
     } catch (error) {
         console.log(error);
     }
 
     return "0";
 }
+
+/************************************************
+ *  Vault Management
+ ***********************************************/
 
 export async function deposit(value: number): Promise<boolean> {
     if (!isInitialized) {
@@ -157,13 +211,74 @@ export async function withdraw(value: number): Promise<boolean> {
     return false;
 }
 
+/************************************************
+ *  Guardian Management
+ ***********************************************/
+
+/************************************************
+ *  Recovery Process
+ ***********************************************/
+
 export async function vote(newOwner: string): Promise<boolean> {
     if (!isInitialized) {
         await init();
     }
 
+    const recoveryStatus = await isInRecovery();
+    if (!recoveryStatus) {
+        const res = await initiateRecovery(newOwner);
+        if (!res) {
+            return false;
+        }
+    } else {
+        const res = await supportRecovery(newOwner);
+        if (!res) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export async function autoExecuteVote(newOwner: string): Promise<boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    const recoveryStatus = await isInRecovery();
+    if (!recoveryStatus) {
+        const res = await initiateRecovery(newOwner);
+        if (!res) {
+            console.log("initiateRecovery failed");
+            return false;
+        }
+    } else {
+        const res = await supportRecovery(newOwner);
+        if (!res) {
+            console.log("supportRecovery failed");
+            return false;
+        }
+    }
+
+    const voteCount = await getCurrentRoundNewOwernVoteCount(newOwner);
+    const threshold = await getThreshold();
+    if (voteCount >= threshold) {
+        const res = await executeRecovery(newOwner);
+        if (!res) {
+            console.log("executeRecovery failed");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+export async function initiateRecovery(newOwner: string): Promise<boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
     try {
-        await walletContractInstance?.methods.vote(newOwner).send({
+        await walletContractInstance?.methods.initiateRecovery(newOwner).send({
             from: selectedAccount,
         });
         return true;
@@ -172,6 +287,126 @@ export async function vote(newOwner: string): Promise<boolean> {
     }
 
     return false;
+}
+
+export async function supportRecovery(newOwner: string): Promise<boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    try {
+        await walletContractInstance?.methods.supportRecovery(newOwner).send({
+            from: selectedAccount,
+        });
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+export async function executeRecovery(newOwner: string): Promise<boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    try {
+        await walletContractInstance?.methods["executeRecovery(address)"](
+            newOwner
+        ).send({
+            from: selectedAccount,
+        });
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+/************************************************
+ *  Recovery Status Management
+ ***********************************************/
+
+export async function getThreshold(): Promise<number> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    try {
+        const threshold = await walletContractInstance?.methods
+            .threshold()
+            .call();
+
+        return threshold.toNumber();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return 0;
+}
+
+export async function isInRecovery(): Promise<Boolean> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    try {
+        const isRecovery = await walletContractInstance?.methods
+            .isRecovery()
+            .call();
+
+        return true;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return false;
+}
+
+export async function getRecoveryRound(): Promise<number> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    try {
+        const recoveryRound = await walletContractInstance?.methods
+            .getRecoveryRound()
+            .call();
+
+        console.log("recoveryRound", recoveryRound);
+
+        return recoveryRound.toNumber();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return 0;
+}
+
+export async function getCurrentRoundNewOwernVoteCount(
+    newOnwer: string
+): Promise<number> {
+    if (!isInitialized) {
+        await init();
+    }
+
+    const currRound = await getRecoveryRound();
+
+    try {
+        const voteCount = await walletContractInstance?.methods
+            .getNewOwnerVoteCount(currRound, newOnwer)
+            .call();
+
+        console.log("vote count", voteCount);
+
+        return voteCount.toNumber();
+    } catch (error) {
+        console.log(error);
+    }
+
+    return 0;
 }
 
 // Utils
