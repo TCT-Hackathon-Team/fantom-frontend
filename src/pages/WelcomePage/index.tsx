@@ -49,8 +49,8 @@ const WelcomePage = (): JSX.Element => {
                     <Row align="middle" id="1">
                         <Col lg={11} md={11} sm={11} xs={24}>
                             <ContentWrapper style={{textAlign: "center",}}>
-                                <div style={{fontWeight: "bold", fontSize: 30}}>Everyone find name for the app
-                                    <p>slogan here</p>
+                                <div style={{fontWeight: "bold", fontSize: 30}}>UzumaKey
+                                    <p>Recovery like a Shinobi</p>
                                 </div>
                                 <Content>A "trustless" key recovery solution, using Fantom blockchain 
                                     to link the ID info (indentity card, driver's license,...) 

@@ -96,9 +96,18 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
               </Col>
               <Col span={24}>
                 <TextArea
-                  placeholder="Optional (You can patse link of your meeting) "
+                  placeholder=""
                   value={values.message || ""}
                   name="Message for Guardians"
+                  onChange={handleChange}
+                />
+                <ValidationType type="message" />
+              </Col>
+              <Col span={24}>
+                <TextArea
+                  placeholder="Patse your link here"
+                  value={values.message || ""}
+                  name="Meeting link (Optional)"
                   onChange={handleChange}
                 />
                 <ValidationType type="message" />
