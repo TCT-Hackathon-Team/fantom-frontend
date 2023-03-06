@@ -40,6 +40,7 @@ export const authReducer = authSlice.reducer
 export const connectWallet = (navigate) => async (dispatch) => {
     const publicAddress = await getCurrentAccount()
     const url = `${import.meta.env.VITE_APP_BACKEND_URL}/users?publicAddress=${publicAddress}`
+    let firstTime = false;
 
     // Look if user with current publicAddress is already present on backend
     fetch(url)
@@ -49,7 +50,12 @@ export const connectWallet = (navigate) => async (dispatch) => {
         // If yes, retrieve it. If no, create it.
         .then((users) => {
             // HandleSignup: if user is not exist
-            return users.length ? users[0] : handleSignup(publicAddress)
+            if (users.length) {
+                return users[0]
+            } else {
+                firstTime = true;
+                return handleSignup(publicAddress)
+            }
         })
         // Popup MetaMask confirmation modal to sign message
         .then(handleSignMessage)
@@ -58,7 +64,12 @@ export const connectWallet = (navigate) => async (dispatch) => {
         // // Pass accessToken back to parent component (to save it in localStorage)
         .then((response) => {
             dispatch(connect({publicAddress, token: response, scAddr: SAMPLE_SC_ADDRESS}))
-            navigate("/management")
+            if (firstTime) {
+                navigate("/management?ft=1")
+            } else {
+                navigate("/management")
+            }
+
             // window.alert("Dang gia lap BE :)))");
             // if (web3 && web3.currentProvider) {
             //     web3.currentProvider.close()
@@ -67,6 +78,4 @@ export const connectWallet = (navigate) => async (dispatch) => {
         .catch((err) => {
             window.alert(err);
         });
-
-
 }

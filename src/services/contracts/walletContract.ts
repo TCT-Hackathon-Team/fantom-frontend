@@ -27,12 +27,12 @@ export const getWeb3Instance = async () => {
  ***********************************************/
 
 export const init = async () => {
-    if (!(window as any).ethereum) {
+    if (!await (window as any).ethereum) {
         window.alert("Please install MetaMask first.");
         return;
     }
 
-    let provider = (window as any).ethereum;
+    let provider = await (window as any).ethereum;
     //  || Web3.givenProvider
     //  || ALCHEMY_RPC_ENDPOINT
     //  || "http://localhost:8545"

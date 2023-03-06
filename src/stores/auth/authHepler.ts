@@ -54,6 +54,9 @@ export const handleSignupNew = (data: NewUser) => {
         return response.json()
     });
 }
+export const test = () => {
+    // chuyen den trang
+}
 
 export const handleSignup = (publicAddress: string) => {
     // Open 1 cho de nguoi dung them guardians
