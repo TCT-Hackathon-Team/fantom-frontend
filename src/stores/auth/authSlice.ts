@@ -1,72 +1,113 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {Account} from "@/common/types";
+import { createSlice } from "@reduxjs/toolkit";
+import { Account } from "@/common/types";
 
-import {handleAuthenticate, handleSignMessage, handleSignup, SAMPLE_SC_ADDRESS} from "@/stores/auth/authHepler";
-import jwtDecode from 'jwt-decode';
-import {getCurrentAccount} from "@/services/contracts/walletContract";
+import {
+    handleAuthenticate,
+    handleSignMessage,
+    handleSignup,
+    SAMPLE_SC_ADDRESS,
+} from "@/stores/auth/authHepler";
+import jwtDecode from "jwt-decode";
+import { getCurrentAccount } from "@/services/contracts/walletContract";
 
-const LS_KEY = 'login-with-metamask:auth';
+const LS_KEY = "login-with-metamask:auth";
 // export let web3: Web3 | undefined | null = undefined; // Will hold the web3 instance
 // export let contract: Contract | undefined | null = undefined;
 
 export const authSlice = createSlice({
-    name: 'auth',
+    name: "auth",
     initialState: {
         value: null as unknown as Account,
     },
     reducers: {
         connect: (state, action) => {
-            state.value = {} as Account
-            const decodedData = jwtDecode(action.payload.token.accessToken);
+            state.value = {} as Account;
+            const decodedData = jwtDecode(action.payload.token.jwt);
+
+            console.log("action", action);
+            console.log("decodeData", decodedData);
+            console.log("state", state);
+
             // @ts-ignore
-            state.value.id = decodedData.payload.id
-            state.value.walletAddr = action.payload.publicAddress
-            state.value.smartContractAddr = SAMPLE_SC_ADDRESS
-            localStorage.setItem(LS_KEY, JSON.stringify(action.payload.token));
+            state.value.id = decodedData.id;
+            state.value.walletAddr = action.payload.publicAddress;
+            state.value.smartContractAddr = action.payload.scAddr;
+
+            localStorage.setItem(
+                LS_KEY,
+                JSON.stringify(action.payload.token.jwt)
+            );
         },
         disconnect: (state) => {
-            state.value = null as unknown as Account
+            state.value = null as unknown as Account;
             // localStorage.removeItem(LS_KEY);
-            localStorage.clear()
+            localStorage.clear();
         },
     },
-})
+});
 
-export const selectAccount = (state: any) => state.auth.value
-export const {connect, disconnect} = authSlice.actions
-export const authReducer = authSlice.reducer
+export const selectAccount = (state: any) => state.auth.value;
+export const { connect, disconnect } = authSlice.actions;
+export const authReducer = authSlice.reducer;
 
 // @ts-ignore
 export const connectWallet = (navigate) => async (dispatch) => {
-    const publicAddress = await getCurrentAccount()
-    const url = `${import.meta.env.VITE_APP_BACKEND_URL}/users?publicAddress=${publicAddress}`
+    const publicAddress = await getCurrentAccount();
+
+    const url = `${
+        import.meta.env.VITE_STRAPI_BACKEND_URL
+    }/api/users?filters[publicAddress][$eqi]=0xCBb30B4Ff53e45372476ba004a775db606F78EB2`;
 
     // Look if user with current publicAddress is already present on backend
     fetch(url)
         .then((response) => {
-            return response.json()
+            return response.json();
         })
         // If yes, retrieve it. If no, create it.
         .then((users) => {
             // HandleSignup: if user is not exist
-            return users.length ? users[0] : handleSignup(publicAddress)
+            return users.length ? users[0] : handleSignup(publicAddress);
         })
         // Popup MetaMask confirmation modal to sign message
         .then(handleSignMessage)
-        // // Send signature to backend on the /counter route
+        // Send signature to backend on the /counter route
         .then(handleAuthenticate)
-        // // Pass accessToken back to parent component (to save it in localStorage)
+        // Pass accessToken back to parent component (to save it in localStorage)
         .then((response) => {
-            dispatch(connect({publicAddress, token: response, scAddr: SAMPLE_SC_ADDRESS}))
-            navigate("/management")
+            const responseAuth = response as any;
+            const jwtToken = responseAuth.jwt;
+            const contractAddress = responseAuth.user.contractAddress;
+
+            dispatch({
+                type: "LOGIN_USER",
+                payload: responseAuth,
+            });
+
+            const test = connect({
+                publicAddress,
+                token: responseAuth,
+                scAddr: contractAddress,
+            });
+
+            console.log("test", test);
+            dispatch(test);
+
+            // dispatch(
+            //     connect({
+            //         publicAddress,
+            //         token: responseAuth,
+            //         scAddr: contractAddress,
+            //     })
+            // );
+            navigate("/management");
             // window.alert("Dang gia lap BE :)))");
             // if (web3 && web3.currentProvider) {
-            //     web3.currentProvider.close()
+            //     web3.currentProvider.close();
             // }
         })
         .catch((err) => {
-            window.alert(err);
+            // window.alert(err);
+            localStorage.clear();
+            throw new Error(err);
         });
-
-
-}
+};

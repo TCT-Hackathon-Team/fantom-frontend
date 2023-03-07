@@ -26,6 +26,14 @@ export const getWeb3Instance = async () => {
  *  Initialization
  ***********************************************/
 
+// export async function connectToMetamask() {
+//     if (typeof (window as any).ethereum !== "undefined") {
+//         console.log("MetaMask is installed!");
+//     }
+
+//     await (window as any).ethereum.request({ method: "eth_requestAccounts" });
+// }
+
 export const init = async () => {
     if (!(window as any).ethereum) {
         window.alert("Please install MetaMask first.");
