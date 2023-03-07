@@ -35,7 +35,7 @@ export async function getUserByAddress(address: string): Promise<string> {
 
     if (!data.username) {
         console.log("Failed to fetch username: User doesn't exist");
-        
+
         return "";
     }
 
@@ -55,7 +55,7 @@ export async function createNewUser(user: NewUser): Promise<string> {
         body: JSON.stringify({
             username: user.name,
             email: `${user.publicAddress}@gmail.com`,
-            password: "test@123",
+            password: import.meta.env.SAMPLE_PASSWORD,
             nonce: Math.floor(Math.random() * 1000000000000000000),
             publicAddress: "0xcdE2CA950d10374CeBfe8003FaB5521b8Cc13Bd0",
         }),
@@ -75,7 +75,7 @@ export async function getUserJWT(address: string): Promise<string> {
         },
         body: JSON.stringify({
             identifier: `${address}@gmail.com`,
-            password: "test@123",
+            password: import.meta.env.SAMPLE_PASSWORD,
         }),
     });
 
