@@ -1,21 +1,21 @@
-import {Col, Row} from "antd";
-import {withTranslation} from "react-i18next";
-import {Slide, Zoom} from "react-awesome-reveal";
-import {ContactProps, ValidationTypeProps} from "./types";
-import {useForm} from "../../common/utils/useForm";
+import { Col, Row } from "antd";
+import { withTranslation } from "react-i18next";
+import { Slide, Zoom } from "react-awesome-reveal";
+import { ContactProps, ValidationTypeProps } from "./types";
+import { useForm } from "../../common/utils/useForm";
 import validate from "../../common/utils/validationRules";
-import {CustomButton} from "../../common/Button";
+import { CustomButton } from "../../common/Button";
 import Block from "../Block";
 import CommonInput from "../../common/Input";
 import TextArea from "../../common/TextArea";
-import {ButtonContainer, ContactContainer, FormGroup, Span} from "./styles";
+import { ButtonContainer, ContactContainer, FormGroup, Span } from "./styles";
 
-const Contact = ({title, content, id, t}: ContactProps) => {
-    const {values, errors, handleChange, handleSubmit} = useForm(
+const Contact = ({ title, content, id, t }: ContactProps) => {
+    const { values, errors, handleChange, handleSubmit } = useForm(
         validate
     ) as any;
 
-    const ValidationType = ({type}: ValidationTypeProps) => {
+    const ValidationType = ({ type }: ValidationTypeProps) => {
         const ErrorMessage = errors[type];
         return (
             <Zoom direction="left">
@@ -24,13 +24,12 @@ const Contact = ({title, content, id, t}: ContactProps) => {
         );
     };
 
-
     return (
         <ContactContainer id={id}>
             <Row justify="space-between" align="middle">
                 <Col lg={12} md={11} sm={24} xs={24}>
                     <Slide direction="left">
-                        <Block title={title} content={content}/>
+                        <Block title={title} content={content} />
                     </Slide>
                 </Col>
                 <Col lg={12} md={12} sm={24} xs={24}>
@@ -46,7 +45,7 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     value={values.name || ""}
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="text"/>
+                                <ValidationType type="text" />
                             </Col>
                             <Col span={24}>
                                 <CommonInput
@@ -56,22 +55,21 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     value={values.name || ""}
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="text"/>
+                                <ValidationType type="text" />
                             </Col>
                             <Col span={24}>
                                 <CommonInput
                                     type="select"
                                     name="License type"
                                     placeholder="Example: CCCD, Driver's License, Passport"
-                                    options={["CCCD", "Driver's License", "Passport"]}
+                                    // options={["CCCD", "Driver's License", "Passport"]}
                                     value={values.licenseType || ""}
                                     onChange={handleChange}
-
                                 />
-                                <ValidationType type="number"/>
+                                <ValidationType type="number" />
                             </Col>
                             <Col span={24}>
-                                <ValidationType type="number"/>
+                                <ValidationType type="number" />
                             </Col>
                             <Col span={24}>
                                 <CommonInput
@@ -81,7 +79,7 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     value={values.name || ""}
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="number"/>
+                                <ValidationType type="number" />
                             </Col>
                             <Col span={24}>
                                 {/* <CommonInput
@@ -100,7 +98,7 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     name="Message for Guardians"
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="message"/>
+                                <ValidationType type="message" />
                             </Col>
                             <Col span={24}>
                                 <CommonInput
@@ -110,7 +108,7 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     value={values.name || ""}
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="number"/>
+                                <ValidationType type="number" />
                             </Col>
                             <Col span={24}>
                                 <CommonInput
@@ -120,11 +118,12 @@ const Contact = ({title, content, id, t}: ContactProps) => {
                                     value={values.name || ""}
                                     onChange={handleChange}
                                 />
-                                <ValidationType type="boolean"/>
-
+                                <ValidationType type="boolean" />
                             </Col>
                             <ButtonContainer>
-                                <CustomButton name="submit">{t("Submit")}</CustomButton>
+                                <CustomButton name="submit">
+                                    {t("Submit")}
+                                </CustomButton>
                             </ButtonContainer>
                         </FormGroup>
                     </Slide>
@@ -135,4 +134,3 @@ const Contact = ({title, content, id, t}: ContactProps) => {
 };
 
 export default withTranslation()(Contact);
-

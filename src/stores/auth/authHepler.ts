@@ -71,21 +71,39 @@ export const handleSignupNew = (data: NewUser) => {
     });
 };
 
-export const handleSignup = (publicAddress: string) => {
+export const handleSignup = async (publicAddress: string) => {
+    console.log("publicAddress", publicAddress);
+
+    console.log("Enter signup process");
+
     // Open 1 cho de nguoi dung them guardians
     const url = `${
         import.meta.env.VITE_STRAPI_BACKEND_URL
     }/api/auth/local/register`;
 
     fetch(url, {
-        body: JSON.stringify({ publicAddress }),
+        body: JSON.stringify({
+            username: `sample-${publicAddress.slice(0, 4)}`,
+            email: `${publicAddress}@gmail.com`,
+            password: import.meta.env.VITE_SAMPLE_PASSWORD,
+            nonce: Math.floor(Math.random() * 1000000000000000000).toString(),
+            publicAddress: publicAddress,
+            isInRecovery: false,
+        }),
         headers: {
             "Content-Type": "application/json",
         },
         method: "POST",
-    }).then((response) => {
-        return response.json();
-    });
+    })
+        .then(async (response) => {
+            const data = await response.json();
+            console.log("dataUser", data.user);
+
+            return data.user;
+        })
+        .catch((err) => {
+            console.log("err", err);
+        });
 
     // fetch(`${BACKEND_API}/users`, {
     //     body: JSON.stringify({ publicAddress }),
