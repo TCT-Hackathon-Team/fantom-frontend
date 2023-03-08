@@ -44,15 +44,15 @@ const Footer = ({t}: any): JSX.Element => {
                         </NavLink>
                         <FooterContainer>
                             <SocialLink
-                                href="https://github.com/Adrinlol/create-react-app-adrinlol"
+                                href="https://github.com/TCT-Hackathon-Team/"
                                 src="github.svg"
                             />
                             <SocialLink
-                                href="https://twitter.com/Adrinlolx"
+                                href="https://twitter.com"
                                 src="twitter.svg"
                             />
                             <SocialLink
-                                href="https://www.linkedin.com/in/lasha-kakabadze/"
+                                href="https://www.linkedin.com/"
                                 src="linkedin.svg"
                             />
                             <a href="https://fantomq12023.devpost.com/">
