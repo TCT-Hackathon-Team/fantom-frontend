@@ -48,20 +48,20 @@ const WelcomePage = (): JSX.Element => {
                 <Fade direction="right">
                     <Row align="middle" id="1">
                         <Col lg={11} md={11} sm={11} xs={24}>
-                            <ContentWrapper style={{textAlign: "center",}}>
-                                <div style={{fontWeight: "bold", fontSize: 30}}>UzumaKey
+                            
+                                <div style={{fontWeight: "bold", fontSize: 30, textAlign: "center"}}>UzumaKey
                                     <p>Recovery like a Shinobi</p>
                                 </div>
-                                <Content>A "trustless" key recovery solution, using Fantom blockchain 
+                                <Content style={{fontSize: 20, textAlign: "justify"}}>A "trustless" key recovery solution, using Fantom blockchain 
                                     to link the ID info (indentity card, driver's license,...) 
                                     with user account and using assistance of social recovery partner (guardians, …) to validate identity</Content>
-                                <CustomButton
+                                <CustomButton 
                                     fixedWidth={true}
                                     onClick={showModal}
                                 >
                                     Recovery
                                 </CustomButton>
-                            </ContentWrapper>
+                            
                         </Col>
                         <Col lg={13} md={13} sm={13} xs={24}>
                             <SvgIcon src={"BG.svg"} width="100%" height="100%"/>
@@ -80,6 +80,17 @@ const WelcomePage = (): JSX.Element => {
                        
                     </Row> */}
                     <br/><br/>
+                         <Row align="middle" id="2" >
+                        <Col lg={23} md={15} sm={20} xs={24} >
+                            <ContentWrapper style={{textAlign: "center",}}>
+                               
+                                <SvgIcon src={"bring.svg"} width="180%" height="180%"/>
+                            </ContentWrapper>
+                        </Col>
+                       
+                       
+                    </Row>
+            
                     <Row align="middle" id="2" >
                         <Col lg={23} md={15} sm={20} xs={24} >
                             <ContentWrapper style={{textAlign: "center",}}>
@@ -91,16 +102,7 @@ const WelcomePage = (): JSX.Element => {
                        
                     </Row>
                     
-                    <Row align="middle" id="2" >
-                        <Col lg={23} md={15} sm={20} xs={24} >
-                            <ContentWrapper style={{textAlign: "center",}}>
-                               
-                                <SvgIcon src={"roadmap.svg"} width="180%" height="180%"/>
-                            </ContentWrapper>
-                        </Col>
-                       
-                       
-                    </Row>
+               
                     <br/><br/>
                     <Row align="middle" id="2" >
                         <Col lg={23} md={15} sm={20} xs={24} >
